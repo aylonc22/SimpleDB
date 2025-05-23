@@ -1,0 +1,14 @@
+{
+  "schema": {
+    "id": "number",
+    "name": "string",
+    "active": "boolean"
+  },
+  "rows": [
+    {
+      "id": 1,
+      "name": "Alice",
+      "active": true
+    }
+  ]
+}
