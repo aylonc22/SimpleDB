@@ -1,0 +1,25 @@
+{
+  "name": "simpledb",
+  "version": "1.0.0",
+  "description": "A minimalist database engine written in TypeScript. SimpleDB supports:",
+  "main": "index.js",
+  "scripts": {
+  "dev": "nodemon --watch src --exec ts-node src/main.ts",
+  "build": "tsc",
+  "start": "node dist/main.js",
+  "test": "vitest run",
+  "test:ui": "vitest --ui"
+},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^22.15.21",
+    "@vitest/ui": "^3.1.4",
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3",
+    "vitest": "^3.1.4"
+  }
+}
