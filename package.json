@@ -4,7 +4,7 @@
   "description": "A minimalist database engine written in TypeScript. SimpleDB supports:",
   "main": "index.js",
   "scripts": {
-  "dev": "nodemon --watch src --exec ts-node src/main.ts",
+  "dev": "nodemon --watch src --exec ts-node src/index.ts",
   "build": "tsc",
   "start": "node dist/main.js",
   "test": "vitest run",
