@@ -10,6 +10,9 @@
   "test": "vitest run",
   "test:ui": "vitest --ui"
 },
+"bin":{
+  "db":"./bin/index.ts"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",

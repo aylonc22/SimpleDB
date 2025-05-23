@@ -6,7 +6,7 @@ export class KeyValueStore {
   private filePath: string;
   private loaded = false;
 
-  constructor(filePath: string) {
+  constructor(filePath: string = './data/kv.json') {
     this.filePath = path.resolve(filePath);
   }
 

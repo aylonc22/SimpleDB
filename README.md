@@ -21,7 +21,7 @@ simpleDB/
 │ ├── relational/ # Relational table engine
 │ ├── document/ # Document store engine
 │ ├── types/ # Shared types/interfaces
-│ └── main.ts # Entry point / REPL
+│ └── index.ts # Entry point / REPL
 ├── data/ # Local persisted storage
 └── tests/ # Unit tests
 ```
