@@ -18,7 +18,7 @@ switch(action){
       setDataBaseType(args[0]);
     }
     else{
-      console.log(`Usage: db use <type> || kv || relational || document`)
+      console.log(`Usage: db use <type>  kv || relational || document`)
     }
     break;
   case 'help':
