@@ -1,17 +1,30 @@
-import { KeyValueStore } from './kv/kvEngine'
+import { setDataBaseType } from "./config/configEngine";
+import { DocumentStore } from "./document/document";
+import { printHelp } from "./help";
+import { KeyValueStore } from "./kv/kvEngine";
+import { RelationalDB } from "./relational/relational";
 
-const db = new KeyValueStore('./data/kv.json');
 
-async function main() {
-  await db.set('language', 'TypeScript');
-  console.log(await db.get('language')); // "TypeScript"
-  await db.delete('language');
-  console.log(await db.get('language')); // undefined
-  await db.set('x', 42);
-  await db.set('y', true);
-  console.log(await db.keys()); // ['x', 'y']
-  await db.clear();
-  console.log(await db.keys()); // []
+
+const kv = new KeyValueStore();
+const relational = new RelationalDB();
+const document = new DocumentStore();
+
+const [, , action, ...args] = process.argv;
+
+switch(action){
+  case 'use':
+    if(args[0] === 'kv' || args[0] === 'relational' || args[0] === 'document'){
+      setDataBaseType(args[0]);
+    }
+    else{
+      console.log(`Usage: db use <type> || kv || relational || document`)
+    }
+    break;
+  case 'help':
+    printHelp();
+    break;
+  default:
+    printHelp();
+    break;
 }
-
-main();
