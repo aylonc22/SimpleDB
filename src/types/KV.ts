@@ -1,10 +1,9 @@
-export type KVDatabase = {
-    [tableName: string]: {
-      [recordId: string]: {
+export type KVRecord = {    
         value: any;
         createdAt: string;
-        updatedAt: string;
-        expiresAt?: number;
-      };
-    };
+        updatedAt: string;             
   };
+
+export type KVTable = Record<string,KVRecord>;
+
+export type KVDatabase = Record<string,KVTable>

@@ -1,8 +1,10 @@
 import { promises as fs } from 'fs';
 import path from 'path';
+import { KVDatabase, KVTable } from '../types/KV';
+import { L } from 'vitest/dist/chunks/reporters.d.C-cu31ET';
 
 export class KeyValueStore {
-  private data: Record<string, any> = {};
+  private data:KVDatabase = {};
   private filePath: string;
   private loaded = false;
 
@@ -18,6 +20,7 @@ export class KeyValueStore {
       this.data = JSON.parse(content);
     } catch (err) {
       if ((err as NodeJS.ErrnoException).code !== 'ENOENT') throw err;
+      this.data = {}
       await this.save(); // create empty file
     }
 
@@ -29,31 +32,57 @@ export class KeyValueStore {
     await fs.writeFile(this.filePath, content, 'utf-8');
   }
 
-  public async set(key: string, value: any): Promise<void> {
+
+  public async set(table: string, key: string, value: any): Promise<void> {
     await this.load();
-    this.data[key] = value;
+    const now = new Date().toISOString();
+    this.data[table] ||= {}
+    const existing = this.data[table][key];
+
+    this.data[table][key] = {
+      value,
+      createdAt: existing?.createdAt || now,
+      updatedAt: now
+    };
+
     await this.save();
   }
 
-  public async get(key: string): Promise<any | undefined> {
+  public async get(table:string, key: string): Promise<any | undefined> {
     await this.load();
-    return this.data[key];
+    return this.data[table]?.[key]?.value;
   }
 
-  public async delete(key: string): Promise<void> {
+  public async delete(table:string, key: string): Promise<void> {
     await this.load();
-    delete this.data[key];
+    if(this.data[table]){
+      delete this.data[table][key];
+      if(Object.keys(this.data[table]).length === 0)
+        delete this.data[table];
+      
+      await this.save();
+    }
+  }
+
+  public async keys(table:string): Promise<string[]> {
+    await this.load();
+    return Object.keys(this.data[table] || []);
+  }
+
+  public async clear(table:string |undefined = undefined): Promise<void> {
+    await this.load();
+    if(table === undefined){
+      this.data = {};
+    }
+    else{
+      delete this.data[table];
+    }
+
     await this.save();
   }
 
-  public async keys(): Promise<string[]> {
+  public async tables():Promise<string[]>{
     await this.load();
     return Object.keys(this.data);
-  }
-
-  public async clear(): Promise<void> {
-    await this.load();
-    this.data = {};
-    await this.save();
   }
 }
