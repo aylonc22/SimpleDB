@@ -16,7 +16,6 @@ A minimalist database engine written in TypeScript. SimpleDB supports:
 ```
 simpleDB/
 ├── src/
-│ ├── core/ # File I/O, utilities
 │ ├── kv/ # Key-Value store engine
 │ ├── relational/ # Relational table engine
 │ ├── document/ # Document store engine
@@ -24,6 +23,8 @@ simpleDB/
 │ └── index.ts # Entry point / REPL
 ├── data/ # Local persisted storage
 └── tests/ # Unit tests
+└── bin/
+└── simpledb # Executable CLI script
 ```
 
 ---
@@ -75,6 +76,18 @@ const db = new DocumentDB('./data/docs.json');
 db.insert('posts', { title: 'Hello', body: 'World' });
 console.log(db.find('posts', { title: 'Hello' }));
 ```
+
+## CLI Support
+SimpleDB includes a basic CLI for Key-Value operations, which allows setting, getting, and deleting keys from the command line.
+```
+./bin/simpledb use kv
+./bin/simpledb  set foo 1 bar
+./bin/simpledb  find foo 1
+./bin/simpledb  delete foo 1
+./bin/simpledb  help
+```
+The CLI is currently implemented for the Key-Value store only, but the structure is already in place to support future CLI features for Relational and Document modes.
+
 ## 🛠 Features
 File-based persistence using JSON
 
