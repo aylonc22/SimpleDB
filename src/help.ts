@@ -10,9 +10,10 @@ export function printHelp() {
       document    Document store
   
     Commands for kv:
-      set <key> <value>         Set a key-value pair
-      get <key>                 Get value by key
-      delete <key>              Delete a key
+      set <table> <key> <value>         Set a key-value pair
+      find <table> <key>                 Get value by key
+      delete <table> <key>              Delete a key
+      clear <Table?>            clear alone will result on a full clear of the database
   
     Commands for relational:
       create-table <table> <schema_json>   Create table with JSON schema
